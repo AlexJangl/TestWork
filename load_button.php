@@ -1,6 +1,6 @@
 <?php
 $buttonGroup = "<div class='btn-group my-2'>
-        <button type='button' class='btn btn-outline-primary' data-role = 'create'>add</button>
+        <button type='button' class='btn btn-outline-primary' data-role = 'create' data-whatever='Add'>add</button>
       </div>
       <div class='btn-group' role='group' aria-label='Button group with nested dropdown bg-primary'>
         <select class='custom-select border-primary border-2' >

@@ -26,18 +26,22 @@ $(document).ready(function () {
     }
 
     $(document).on('click', 'button[data-role = create]', function () {
-        $('#modal-title').html('Create user');
+        //$('#modal-title').html('Create user');
+
+
         $('#userId').val(undefined);
         $('#first_name').val('');
         $('#last_name').val('');
         $('#role').val('');
         $('#status').prop('checked', false);
-        $('#user-form-modal').modal('toggle');
+        $('#user-form-modal').modal('toggle', $(this));
+
+
 
     })
 
     $(document).on('click', 'button[data-role = update]', function () {
-        $('#modal-title').html('Edit user');
+        //$('#modal-title').html('Edit user');
         let id = ($(this).data('id'));
         let first_name = $('#' + id).children('input[data-target = first_name]').val();
         let last_name = $('#' + id).children('input[data-target = last_name]').val();
@@ -53,7 +57,7 @@ $(document).ready(function () {
         } else {
             $('#status').prop('checked', false);
         }
-        $('#user-form-modal').modal('toggle');
+        $('#user-form-modal').modal('toggle', $(this));
     })
 
     $('#save').click(function () {
@@ -94,7 +98,7 @@ $(document).ready(function () {
     $(document).on('click', 'button[data-role = delete]', function () {
         const id = ($(this).data('id'));
         $('#userIdDel').val(id);
-        $('#delete-form-modal').modal('toggle');
+        $('#delete-form-modal').modal('toggle', $(this));
     })
 
     $('#delete').click(function () {
@@ -171,7 +175,23 @@ $(document).ready(function () {
                 $('#selectErrorModal').modal('toggle');
         }
     }
+
+    $('#user-form-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let recipient = button.attr('data-whatever');
+        let modal = $(this);
+        modal.find('.modal-title').text(recipient + ' user');
+    })
+    $('#delete-form-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let recipient = button.attr('data-whatever');
+        let modal = $(this);
+        modal.find('.modal-title').text(recipient + ' user');
+        modal.find('.modal-body').text(recipient + ' user?');
+    })
+
 })
+
 
 
 

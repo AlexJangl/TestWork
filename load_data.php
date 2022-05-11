@@ -55,8 +55,8 @@ while ($row = mysqli_fetch_array($res)){
                 <td class='text-center align-middle' data-target = 'status'><i class='fa fa-circle  ".($row['status']==0 ? 'not-':null)."active-circle'></i></td>
                 <td class='text-center align-middle'>
                     <div class='btn-group align-top'>
-                        <button class='btn btn-sm btn-outline-primary badge' type='button' data-role = 'update' data-id = '".$row[0]."'>Edit</button>
-                        <button class='btn btn-sm btn-outline-primary badge' type='button' data-role = 'delete' data-id = '".$row[0]."'>
+                        <button class='btn btn-sm btn-outline-primary badge' type='button' data-role = 'update' data-id = '".$row[0]."' data-whatever='Edit'>Edit</button>
+                        <button class='btn btn-sm btn-outline-primary badge' type='button' data-role = 'delete' data-id = '".$row[0]."' data-whatever='Delete'>
                             <i class='fa fa-trash'></i></button>
                     </div>
                 </td>
