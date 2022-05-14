@@ -23,7 +23,7 @@ include_once ('get_roles.php');
                     <div class="form-group">
                         <label>Role</label>
                         <select class="form-control" name="role" required id = 'role'>
-                            <option selected>Please Select</option>
+                            <option selected value="">Please Select</option>
                             <?php
                             while ($role =mysqli_fetch_array($query_roles)){
                                 $output .= "
@@ -39,11 +39,12 @@ include_once ('get_roles.php');
                         </div>
                     </div>
                 </div>
-
-                </div>
+                    <div id="modal-error" class="text-danger text-center"></div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit" id="save">Save Changes</button>
+                <button class="btn btn-primary modal-button" type="submit" id="save"></button>
+
             </div>
         </div>
     </div>

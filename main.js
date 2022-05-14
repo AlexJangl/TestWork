@@ -26,22 +26,18 @@ $(document).ready(function () {
     }
 
     $(document).on('click', 'button[data-role = create]', function () {
-        //$('#modal-title').html('Create user');
-
-
+        $('#modal-error').text('');
         $('#userId').val(undefined);
         $('#first_name').val('');
         $('#last_name').val('');
         $('#role').val('');
         $('#status').prop('checked', false);
+
         $('#user-form-modal').modal('toggle', $(this));
-
-
-
     })
 
     $(document).on('click', 'button[data-role = update]', function () {
-        //$('#modal-title').html('Edit user');
+        $('#modal-error').text('');
         let id = ($(this).data('id'));
         let first_name = $('#' + id).children('input[data-target = first_name]').val();
         let last_name = $('#' + id).children('input[data-target = last_name]').val();
@@ -69,6 +65,19 @@ $(document).ready(function () {
         let is_status = document.getElementById('status');
         let status = is_status.checked ? 1 : 0;
 
+        if (first_name == '') {
+            $('#modal-error').text('first name is empty');
+            return false;
+        }
+        if (last_name == '') {
+            $('#modal-error').text('last name is empty');
+            return false;
+        }
+        if (role == '') {
+            $('#modal-error').text('role is empty');
+            return false;
+        }
+
 
         if (id) {
             $.ajax({
@@ -86,10 +95,18 @@ $(document).ready(function () {
                 url: 'add_user.php',
                 method: 'post',
                 data: {first_name: first_name, last_name: last_name, role: role, status: status},
-                success: function (data, status) {
+                success: function (response) {
+                    var jsonData = JSON.parse(response);
+                    if (jsonData.status == true)
+                    {
+                        $('#user-form-modal').modal('toggle');
+                        load_data();
+                    }
+                    else
+                    {
+                        alert(jsonData.error['messeage']);
+                    }
 
-                    $('#user-form-modal').modal('toggle');
-                    load_data();
                 }
             })
         }
@@ -181,6 +198,7 @@ $(document).ready(function () {
         let recipient = button.attr('data-whatever');
         let modal = $(this);
         modal.find('.modal-title').text(recipient + ' user');
+        modal.find('.modal-button').text(recipient + ' user');
     })
     $('#delete-form-modal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);

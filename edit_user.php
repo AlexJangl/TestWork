@@ -8,4 +8,9 @@ if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['r
     $status = $_POST['status'];
     $query = "UPDATE users SET first_name='$first_name', last_name = '$last_name', role_id='$role', status='$status' WHERE id='$id' ";
     $res =mysqli_query($connect, $query);
+    echo json_encode(array('status' => true));
+}
+else {
+
+    echo json_encode(array('status' => false, 'error'=>['code'=> 100, 'message'=>"not data"]));
 }
