@@ -43,7 +43,7 @@ include_once ('get_roles.php');
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary modal-button" type="submit" id="save"></button>
+                <button class="btn btn-success modal-button" type="submit" id="save">Save user</button>
 
             </div>
         </div>

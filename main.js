@@ -114,6 +114,10 @@ $(document).ready(function () {
 
     $(document).on('click', 'button[data-role = delete]', function () {
         const id = ($(this).data('id'));
+        let first_name = $('#' + id).children('input[data-target = first_name]').val();
+        let last_name = $('#' + id).children('input[data-target = last_name]').val();
+        $('#first_name_del').text(first_name);
+        $('#last_name_del').text(last_name);
         $('#userIdDel').val(id);
         $('#delete-form-modal').modal('toggle', $(this));
     })
@@ -177,14 +181,19 @@ $(document).ready(function () {
                 break;
             }
             case '3': {
-                $.ajax({
-                    url: 'delete_user.php',
-                    method: 'post',
-                    data: {ids: ids},
-                    success: function (response) {
-                        load_data();
-                    }
-                })
+                if(confirm("You want to delete selected users")){
+                    $.ajax({
+                        url: 'delete_user.php',
+                        method: 'post',
+                        data: {ids: ids},
+                        success: function (response) {
+
+                            load_data();
+                        }
+                    })
+                }
+                else load_data();
+
 
                 break;
             }
@@ -198,14 +207,14 @@ $(document).ready(function () {
         let recipient = button.attr('data-whatever');
         let modal = $(this);
         modal.find('.modal-title').text(recipient + ' user');
-        modal.find('.modal-button').text(recipient + ' user');
+        //modal.find('.modal-button').text(recipient + ' user');
     })
     $('#delete-form-modal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);
         let recipient = button.attr('data-whatever');
         let modal = $(this);
         modal.find('.modal-title').text(recipient + ' user');
-        modal.find('.modal-body').text(recipient + ' user?');
+        //modal.find('.modal-body').text(recipient + ' user?');
     })
 
 })
