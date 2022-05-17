@@ -136,6 +136,12 @@ $(document).ready(function () {
         })
     })
 
+    $('#cancel-delete').click(function () {
+        $('#first_name_del').text('');
+        $('#last_name_del').text('');
+        load_data();
+    })
+
     $(document).on('click', 'input[data-role = all]', function () {
         $(this).change(function () {
             $('.checkitem').prop('checked', $(this).prop('checked'));
@@ -181,18 +187,18 @@ $(document).ready(function () {
                 break;
             }
             case '3': {
-                if(confirm("You want to delete selected users")){
+                $('#delete-form-modal').modal('toggle');
+                $('#delete').click(function () {
                     $.ajax({
                         url: 'delete_user.php',
                         method: 'post',
                         data: {ids: ids},
                         success: function (response) {
-
+                            $('#delete-form-modal').modal('toggle');
                             load_data();
                         }
                     })
-                }
-                else load_data();
+                })
 
 
                 break;
@@ -207,14 +213,23 @@ $(document).ready(function () {
         let recipient = button.attr('data-whatever');
         let modal = $(this);
         modal.find('.modal-title').text(recipient + ' user');
-        //modal.find('.modal-button').text(recipient + ' user');
+        if(recipient === 'Add'){
+            modal.find('.modal-button').text(recipient + ' user');
+        }else {
+            modal.find('.modal-button').text('Seve user');
+        }
     })
     $('#delete-form-modal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);
         let recipient = button.attr('data-whatever');
         let modal = $(this);
-        modal.find('.modal-title').text(recipient + ' user');
-        //modal.find('.modal-body').text(recipient + ' user?');
+        if (recipient == 'Delete'){
+            modal.find('.modal-title').text(recipient + ' user');
+            modal.find('.span-modal-body').text("Are you sure you want to delete the user ");
+        }else {
+            modal.find('.modal-title').text('Delete users');
+            modal.find('.span-modal-body').text("You want to delete selected users");
+        }
     })
 
 })

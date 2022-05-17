@@ -8,12 +8,14 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <span id="first_name_del"></span>
-                <span id="last_name_del"></span>
+                <span class="span-modal-body"></span>
+                <span id='first_name_del'></span>
+                <span id='last_name_del'></span>
+                <span>?</span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button class="btn btn-danger" type="submit" id="delete">Delete Changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel-delete">CANCEL</button>
+                <button class="btn btn-danger" type="submit" id="delete">YES</button>
             </div>
         </div>
     </div>
