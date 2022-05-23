@@ -25,6 +25,17 @@ $(document).ready(function () {
         })
     }
 
+    function load_row(data) {
+        $.ajax({
+            url: "table_row.php",
+            method: "POST",
+            data:{data: data},
+            success: function (data, status) {
+                $('tbody').append(data);
+            }
+        })
+    }
+
     $(document).on('click', 'button[data-role = create]', function () {
         $('#modal-error').text('');
         $('#userId').val(undefined);
@@ -96,11 +107,12 @@ $(document).ready(function () {
                 method: 'post',
                 data: {first_name: first_name, last_name: last_name, role: role, status: status},
                 success: function (response) {
-                    var jsonData = JSON.parse(response);
+                    let jsonData = JSON.parse(response);
                     if (jsonData.status == true)
                     {
                         $('#user-form-modal').modal('toggle');
-                        load_data();
+                        this.data += "&id="+jsonData.id;
+                        load_row(this.data);
                     }
                     else
                     {
@@ -131,14 +143,14 @@ $(document).ready(function () {
             data: {id: id},
             success: function (response) {
                 $('#delete-form-modal').modal('toggle');
-                load_data();
+                document.getElementById(id).style.display ='none';
+                $('#first_name_del').text('');
+                $('#last_name_del').text('');
             }
         })
     })
 
     $('#cancel-delete').click(function () {
-        $('#first_name_del').text('');
-        $('#last_name_del').text('');
         load_data();
     })
 
