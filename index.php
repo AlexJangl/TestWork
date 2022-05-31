@@ -46,6 +46,6 @@
 </div>
 <script src="jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="main.js"></script>
+<script type="text/javascript" charset="utf-8" src="main.js"></script>
 </body>
 </html>

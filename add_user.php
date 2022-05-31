@@ -11,8 +11,8 @@ if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['r
 
     $res =mysqli_query($connect, $query);
     $id = mysqli_insert_id($connect);
-   echo json_encode(array('status' => true, 'id'=>$id));
+   echo json_encode(array('state' => true, 'id'=>$id, 'first_name'=>$first_name, 'last_name'=>$last_name, 'status'=>$status, 'role'=>$role));
 }
  else {
-    echo json_encode(array('status' => false, 'error'=>['code'=> 100, 'messeage'=>"not data"]));
+    echo json_encode(array('state' => false, 'error'=>['code'=> 100, 'messeage'=>"not data"]));
 }

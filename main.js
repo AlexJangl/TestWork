@@ -96,8 +96,38 @@ $(document).ready(function () {
                 method: 'post',
                 data: {id: id, first_name: first_name, last_name: last_name, role: role, status: status},
                 success: function (response) {
-                    $('#user-form-modal').modal('toggle');
-                    load_data();
+                    let jsonData = JSON.parse(response);
+                    if (jsonData.state == true)
+                    {
+                        $('#user-form-modal').modal('toggle');
+                        let id = jsonData.id;
+                        $('#' + id + 'input[data-target = first_name]').val(jsonData.first_name);
+                        $('#' + id + 'input[data-target = last_name]').val(jsonData.last_name);
+                        $('#' + id + 'input[data-target = role]').val(jsonData.role);
+                        $('#' + id + 'input[data-target = status]').val(jsonData.status);
+                        $('#' + id).children('td[data-target = name]').text(jsonData.first_name+' '+jsonData.last_name);
+                        let role = '';
+                        if (jsonData.role == 1){
+                            role = 'admin'
+                        }
+                        else {
+                            role = 'user'
+                        }
+                        $('#' + id).children('td[data-target = role]').text(role);
+                        $('#' + id + ' td[data-target = status] i').removeClass('not-active-circle active-circle');
+                        if (jsonData.status == 1){
+                           status = 'active-circle';
+                        }
+                        else {
+                            status = 'not-active-circle';
+                        }
+                        $('#' + id + ' td[data-target = status] i').addClass(status);
+
+                    }
+                    else
+                    {
+                        alert(jsonData.error['messeage']);
+                    }
                 }
             })
         } else {
@@ -108,11 +138,16 @@ $(document).ready(function () {
                 data: {first_name: first_name, last_name: last_name, role: role, status: status},
                 success: function (response) {
                     let jsonData = JSON.parse(response);
-                    if (jsonData.status == true)
+                    if (jsonData.state == true)
                     {
                         $('#user-form-modal').modal('toggle');
-                        this.data += "&id="+jsonData.id;
-                        load_row(this.data);
+                        data = '';
+                        data+= "id="+jsonData.id;
+                        data+= "&first_name="+jsonData.first_name;
+                        data+= "&last_name="+jsonData.last_name;
+                        data+= "&role="+jsonData.role;
+                        data+= "&status="+jsonData.status;
+                        load_row(data);
                     }
                     else
                     {
@@ -148,10 +183,6 @@ $(document).ready(function () {
                 $('#last_name_del').text('');
             }
         })
-    })
-
-    $('#cancel-delete').click(function () {
-        load_data();
     })
 
     $(document).on('click', 'input[data-role = all]', function () {

@@ -35,7 +35,7 @@ $output .= "
     <input type='hidden' data-target = 'status' value=".$row['status'].">
     <td class='text-nowrap align-middle' data-target = 'name'>".$row['first_name'].' '.$row['last_name']."</td>
     <td class='text-nowrap align-middle' data-target = 'role'><span>".$row['role']."</span></td>
-    <td class='text-center align-middle' data-target = 'status'><i class='fa fa-circle  ".($row['status']==0 ? 'not-':null)."active-circle'></i></td>
+    <td class='text-center align-middle' data-target = 'status'><i class='fa fa-circle circle  ".($row['status']==0 ? 'not-':null)."active-circle'></i></td>
     <td class='text-center align-middle'>
         <div class='btn-group align-top'>
             <button class='btn btn-sm btn-outline-primary badge' type='button' data-role = 'update' data-id = '".$row[0]."' data-whatever='Edit'>Edit</button>
